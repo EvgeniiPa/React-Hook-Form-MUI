@@ -1,6 +1,6 @@
 import { Input, Button} from '@mui/material'
 import { useForm, Controller, useFieldArray} from 'react-hook-form'
-import { DateCalendar } from '@mui/x-date-pickers';
+import { DatePicker} from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
@@ -38,11 +38,7 @@ export default function Form(){
         <Controller
             name='MyDate'
             control={control}
-            rules={{
-                required:true,
-                min: '2024-04-10',
-            }}
-            render={({field})=><DateCalendar {...field} disablePast={true}/>}
+            render={({field})=> <DatePicker {...field} disablePast={true} />}
             />
         {errors.MyDate && <span>Дата введена неверно</span>}
         {fields.map((field, index)=>(
@@ -50,8 +46,9 @@ export default function Form(){
                 <Controller
                 name={`MyNumberNew.${field.id}`}
                 control={control}
+                defaultValue=''
                 rules={{minLength: 5, maxLength: 7, required:true,}}
-                render={({field})=> <Input {...field} type='number'/>}
+                render={({field})=> <Input {...field} type='number' />}
                 />
                 <Button onClick={()=> remove(index)}>DELETE</Button>
             </div>
